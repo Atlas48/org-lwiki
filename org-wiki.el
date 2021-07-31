@@ -7,7 +7,7 @@
 ;; Keywords: org-mode, wiki, notes, notebook
 ;; Version: 5.1
 ;; URL: https://www.github.com/caiorss/org-wiki'
-;; Package-Requires: ((helm-core "2.0") (cl-lib "0.5"))
+;; Package-Requires: ((helm-core "2.0") (cl-lib "0.5") (s "1.10.0"))
 
 
 ;; This is free and unencumbered software released into the public domain.
@@ -46,6 +46,7 @@
 ;; external libraries
 (require 'ox-html)
 (require 'helm)
+(require 's)
 
 ;; built-in Emacs lib
 (require 'cl-lib)     ;; Common-lisp emulation library
@@ -450,8 +451,7 @@ Returns FILE-path when positive."
 Example:  (org-wiki--open-page \"Linux\")
 Will open the the wiki file Linux.org in
 `org-wiki-location`"
-  (let* ((org-wiki-file (org-wiki--page->file pagename))
-         (index (string= pagename org-wiki-index-file-basename)))
+  (let ((org-wiki-file (org-wiki--page->file pagename)))
     (if (not (file-exists-p org-wiki-file))
         ;; Action executed if file doesn't exist.
         (progn (find-file  org-wiki-file)
@@ -460,9 +460,7 @@ Will open the the wiki file Linux.org in
                ;; Save current page buffer
                (save-buffer)
                ;; Create assets directory
-               (org-wiki--assets-make-dir pagename)
-               (when index
-                 (org-wiki--insert-index)))
+               (org-wiki--assets-make-dir pagename))
 
       ;; Action executed if file exists.
         ;; (if org-wiki-default-read-only
@@ -746,7 +744,6 @@ Emacs like source codes. It will insert a link like this
                  (concat "file:" file)
                  (file-name-nondirectory file)))))))
 
-
 (defun org-wiki-asset-insert-image ()
   "Insert link file:<page>/<file> to images asset file at point.
 This command is similar to org-wiki-asset-insert-file but it inserts a link
@@ -822,7 +819,6 @@ this file:Linux/scriptDemoQT.py .
                (concat "file:"
                        (org-wiki--current-page-asset-file filename))
                filename)))))
-
 
 (defun org-wiki-asset-download-insert1 ()
   "Download a file from a URL in the clibpoard and inserts a link wiki-asset-sys:.
@@ -1126,7 +1122,7 @@ Note: This command requires Python3 installed."
              (gnu/linux       (insert (shell-command-to-string "ifconfig")))
                                         ;;; Free BSD OS
              (gnu/kfreebsd    (insert (shell-command-to-string "ifconfig")))
-                                        ;; Mac OSX - (Not tested)
+                                        ;; Mac OSX - (Not tested )
              (darwin          (insert (shell-command-to-string "ifconfig")))
                                         ;; Windows 7, 8, 10 - Kernel NT
              (windows-nt      (insert (shell-command-to-string "ipconfig")))))
@@ -1138,7 +1134,7 @@ Note: This command requires Python3 installed."
                          "--bind"
                          org-wiki-server-host
                          org-wiki-server-port)
-          (when (y-or-n-p "Open server in browser ? ")
+          (when (y-or-n-p "Open server in browser ?")
             (browse-url (format "http://localhost:%s" org-wiki-server-port))))
         (progn  (switch-to-buffer bname)
                 (kill-process (get-process pname))
@@ -1176,7 +1172,7 @@ Note: This command requires Python3 installed."
   (interactive)
   (let* ((dir   (file-name-base
                     (buffer-file-name))))
-    
+
     (org-wiki--assets-make-dir dir)
 
     (insert "#+CAPTION: ")
@@ -1218,7 +1214,7 @@ Note: This command requires Python3 installed."
     (,(kbd "hr")        .  org-wiki-helm-read-only)
     (,(kbd "hf")        .  org-wiki-helm-frame)
     (,(kbd "kk")        .  org-wiki-close)
-    
+
     ;; ==== Commands to browse directories =====
     (,(kbd "dw")        .  org-wiki-dired)
     (,(kbd "do")        .  org-wiki-open)
@@ -1240,7 +1236,6 @@ Note: This command requires Python3 installed."
 
     (,(kbd "ttb")        . (lambda () (interactive) (tool-bar-mode 'toggle)))
     (,(kbd "ttm")        . (lambda () (interactive) (menu-bar-mode 'toggle)))
-    
     (,(kbd "q")         . (lambda () (interactive) (kill-buffer))))
    ;; Make mode local to buffer rather than global
    ;; :global t
@@ -1557,7 +1552,6 @@ Toggle
        ("Square root sqrt" . "√")
        ("Cubic root cbrt" . "∛")
        ("Fourth root" . "∜")
-       
        ("Infinity" . "∞")
        ("summation" . "Σ")
        ("product - big PI" . "Π")
@@ -1571,24 +1565,18 @@ Toggle
        ("tensor-prod" . "⊗")
        ("Direct sum or Exclusive or" . "⊕")
        ("Gradient, nabla" ."∇")
-       
        ("Laplace transform" . "ℒ")
        ("Fourier transform" . "ℱ")
-       
        ;; Symbols for set algebra
        ("Empty set" . "∅")
        ("Set membership" . "∈")
        ("Universal quantifier" . "∀")
        ("Existential quantifier" . "∃")
        ("If only if, triple bar" . "≡")
-
        ("Logic - Logical NOT" . "¬")
        ("Logic - Logical AND" . "∧")
        ("Logic - Logical OR" . "∨")
-       
-       
        ("Real numbers" . "ℝ")
-       
        ;; Misc Symbols
        ("Per mile" . "‰")
        ("Per basis points" . "‱")
@@ -1614,14 +1602,12 @@ Toggle
        ("Geometry - Spherical angle" . "∢")
        ("Geometry - Perpendicular to" . "⟂")
        ("Geometry - right angle" . "∟")
-       
       ;; Health and safety
        ("WARN Skull and crossbones" . "☠")
        ("WARN Radioactive" . "☢")
        ("WARN Biohazard" . "☣")
        ("WARN Warning sign" . "⚠")
        ("WARN High voltage" . "⚡")
-       
       ;; Fractions
        ("Fraction one-quarter" . "¼")
        ("Fraction one-half" . "½")
@@ -1669,7 +1655,6 @@ Toggle
   ("Basic Summation - Σ from a to b"    . "\\sum_{a}^{b}")
   ("Basic Product - Π from a to b" . "\\prod_{a}^{b}")
   ("Basic Binomial coefficient (n k) = n! / ((n -k)! x k!) " . "{n \\choose k}")
-  
   ("Calculus Limit lim(x -> ∞) f(x)" . "\\lim_{x \\to \\infty} f(x)")
   ("Calculus Integral  - ∫ from a to b"  . "\\int_{a}^{b}")
   ("Calculus Infinity  - ∞" . "\\infty")
@@ -1690,13 +1675,11 @@ Toggle
   ("Operator - div %"                       . "\\div")
   ("Operator - Approximately ~="            . "\\prox")
   ("Operator - Proportional to ∝"           . "\\propto")
-  
   ("Escape - $"              . "\\textdollar")
   ("Escape - Underline - _ " . "\\_")
   ("Escape - Ampersand - &"  . "\\&")
   ("Escape - percent - %"    . "\\%")
   ("Escape - tilde ~"        . "\\sim")
-  
   ("Func - limit" . "\\lim")
   ("Func - √ square root sqrt" . "\\sqrt{}")
   ("Func - n√ nth root" . "\\sqrt[n]{}")
@@ -1704,7 +1687,6 @@ Toggle
   ("Enclosing () - Big parenthesis" . "\\left( <expr> \\right)")
   ("Enclosing \/ - Underbrace" . "\\underbrace{ <expr> }")
   ("Enclosing /\ - Overbrace" . "\\overbrace{ <expr> }")
-  
   ("Accent - hat â, î" . "\\hat{}")
   ("Accent - grave à, ì" . "\\grave{}")
   ("Accent - bar - stroke over symbol" . "\\bar{}")
@@ -1712,7 +1694,6 @@ Toggle
   ("Accent - dot (derivate) symbol" . "\\dot{}")
   ("Accent - double dot (double derivate) symbol" . "\\ddot{}")
   ("Accent - arrow over symbol, vector" . "\\vec{}")
-  
   ;; Set notation
   ("Sets - N Set of Natural Numbers" . "\\N")
   ("Sets - Z Set of Integers" . "\\Z")
