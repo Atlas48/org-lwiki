@@ -11,6 +11,8 @@
 fork is to extend the original org-wiki to make it the Emacs(-lisp) equivalent
 of the great [[https://zim-wiki.org/][zim]] desktop wiki software (but even nicer).
 
+*I am also working on splitting out this README into functioning documentation*
+
 [[https://github.com/caiorss/org-wiki][org-wiki]] offers a nice starter "template" for the project. However, that package
 is a little outdated and it requires an update to make it use more modern tools
 like [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][org-publish]], [[https://github.com/alphapapa/org-ql][org-ql]]/[[https://github.com/alphapapa/org-rifle][org-rifle]], [[https://github.com/alphapapa/org-sidebar][org-sidebar]]/[[https://github.com/toshism/org-super-links][org-super-links]] etc. Also I
@@ -23,7 +25,7 @@ full use of a css-framework (check out the [[https://github.com/juanjosegarciari
 directory). An example is provided by the [[https://gitlab.com/flonic/org-blog/-/blob/master/ox-bulma.el][ox-bulma]] exporter of which a very
 early site preview can be found [[https://flonic.gitlab.io/org-blog/blog/emacs-transient-tutorial/index.html][here]].
 
-** Motivation
+* Motivation
    Org-mode is an amazing personal management and note taking system. However,
    its flexibility makes it a little overwhelming to decide on a good way to
    structure the system.
@@ -34,13 +36,13 @@ the [[https://zim-wiki.org/][zim]] desktop wiki software. Org actually provides 
 using single org files as equivalent to [[https://zim-wiki.org/manual/Help/Notebooks.html][zim notebooks]]. However using a single
 org file per notebook has some drawbacks:
 
-*** Slow
+** Slow
 Unfortunately org quickly becomes really slow (I have a single note file with
 only 72 main headings and 413 total headings and it already takes more than 10
 seconds to just open it). This is one reason to break up the single file in
 multiple files.
 
-*** Publishing with org-publish
+** Publishing with org-publish
 I would love to share many of my notes and articles. However, to publish the
 single note file with a nice website structure, it is again a good strategy to
 break up the single note file in multiple files. In this way it can be made
@@ -50,13 +52,13 @@ exporters for css-frameworks, like in my experiment [[https://gitlab.com/flonic/
 [[https://flonic.gitlab.io/org-blog/blog/emacs-transient-tutorial/index.html][here]]. I guess in the end the =org-wiki= could replace the [[https://gitlab.com/dalanicolai/easy-thtml][easy-thtml]] package
 (which is a very basic start to "port" the [[https://github.com/masasam/emacs-easy-hugo][easy-hugo]] package to =org-thtmtl=).
 
-*** Contribute/collaborate
+** Contribute/collaborate
     Of course to fulfill all the goals is a lot of work, so I would be very
     happy with any kind of contributors/collaborators. I am planning to keep a
     TODO list in the [[https://github.com/dalanicolai/org-wiki/wiki][wiki section]] of this repo.
 
 
-** Changelog (changes/additions w.r.t. original org-wiki)
+* Changelog (changes/additions w.r.t. original org-wiki)
   - automatically create/sync index from existing wiki pages files (to leave the
     structure of the index intact, the "index updater" which produces a
     structure as found in the file system, will be replaced by an "index
@@ -66,8 +68,7 @@ exporters for css-frameworks, like in my experiment [[https://gitlab.com/flonic/
   - add find page command using completion-read (compatible with most completion
     frameworks like ivy, selectrum etc.)
     
-* Org-wiki 
-** Overview 
+* Overview 
 
 Org-wiki is a org-mode extension that provides tools to manage and
 build [[https://en.wikipedia.org/wiki/Personal_wiki][personal wiki]] or _desktop wiki_ where each wiki page is a
@@ -84,21 +85,14 @@ name ~keyword.org~.
 *Features:*
 
   - A wiki system for Emacs.
-
   - Search wiki pages quickly.
-
   - Create new wiki pages fast.
-
   - Command to export all pages to html without block Emacs.
     =M-x org-wiki/export-html-async=
-
   - Search wiki pages by its content. (grep)
-
   - org-mode protocol to create and open wiki pages.
-
   - org-mode protocol to open attachment/asset files with default
     system application.
-
   - Automatic download of attachment files with:
     - =M-x org-wiki-asset-download-insert1= 
     - =M-x org-wiki-asset-download-insert2= 
@@ -107,15 +101,10 @@ Org-mode already has many features that makes it suitable to create a desktop
 wiki and store knowledge like:
 
  - Render Latex formulas. 
-
  - Block codes (org-babel).
-
  - Fast navigation and editing
-
  - Support for tables 
-
  - Ability to export to html and other formats. 
-
  - Links to files, images, system commands and Elisp commands.
 
 
@@ -150,7 +139,7 @@ or
 It will open the file =~/wiki-directory/Linux/LearnLinux.pdf= with the
 default system application.
 
-** FAQ
+* FAQ
 
 *What is a personal wiki/ desktop wiki?*
 
@@ -187,7 +176,7 @@ You can see Org-mode Screencasts and reviews here:
 
  - http://orgmode.org/worg/org-tutorials/org-screencasts/
 
-** Demos 
+* Demos 
 
  - (1) Browsing Index: =M-x org-wiki/index=
 
@@ -222,7 +211,7 @@ You can view a sample wiki exported to html here:
 
  - This sample wiki is available at  [[https://github.com/caiorss/org-wiki/tree/master/sandbox/wiki][sandbox/wiki]]
 
-** Screenshots 
+* Screenshots 
 
  - 1. Command =M-x org-wiki-index= Open the wiki index page (file index.org) 
 
@@ -255,22 +244,21 @@ Example: The command =M-x org-wiki/search-pattern - System.Windows= will search 
 files that contains "System.Windows string".
 
 [[file:images/wiki-search-pattern.png][file:images/wiki-search-pattern.png]]
-** Workflow
-*** Switching wiki 
+* Workflow
+** Switching wiki 
 
 Now org wiki supports multiple wikis or root directories, but only
 one wiki can be used at a time. So, to switch wiki type:
 
  - =M-x org-wiki-switch-root=
  
-*** Create a page - way 1
+** Create a page - way 1
 
 To create a page do:
 
- - 1. =M-x org-wiki-index= - It goes to the Org-wiki index page
+ 1. =M-x org-wiki-index= - It goes to the Org-wiki index page
    (index.org).
-
- - 2. Then run =M-x org-wiki-insert-new= and a page name like 'CNC - Computer Numerical Control'
+ 2. Then run =M-x org-wiki-insert-new= and a page name like 'CNC - Computer Numerical Control'
 
 It will insert a hyperlink at point like:
 
@@ -280,7 +268,7 @@ It will insert a hyperlink at point like:
 
  - 3. Then click at the link or enter =C-x C-o= at the link to open it.
 
-*** Create a page - way 2
+** Create a page - way 2
 
 Run =M-x org-wiki-new= and enter the page name, for instance 'Unix System Calls',
 it will create the file 'Unix System Calls.org' in the root directory
@@ -290,7 +278,7 @@ The advantage of creating a page using 'way 1' is that it inserts a
 link to the new created page before opening it, therefore making
 easier to categorize and navigate the pages.
 
-*** Browse a page
+** Browsing pages
 
 The navigation can be done by running
 
@@ -307,9 +295,9 @@ or
  - =M-x org-wiki-helm-frame= to open a page in another frame (Emacs
    terminology for GUI window).
 
-** Install 
-*** Installation Methods  
-**** Method 1 - Bootstrap installer 
+* Install 
+** Installation Methods  
+*** Method 1: Bootstrap installer 
 
 Evaluate this code in the scratch buffer that will install all
 dependencies and this package. The scratch buffer can be evaluated
@@ -325,7 +313,7 @@ with =M-x eval-buffer=.
 	(package-install-from-buffer)))
 #+END_SRC
 
-**** Method 2 - El-get 
+*** Method 2: el-get 
 
 Just copy this piece of code to scratch buffer and eveluate the buffer
 with =M-x eval-buffer=. It is assumed that [[https://github.com/dimitri/el-get][el-get]] is already installed. 
@@ -382,11 +370,9 @@ Paths where all org-wiki pages (*.org files) are stored.
 ;; (setq org-wiki-location "~/org/wiki")
 
 (setq org-wiki-location-list
-      '(
-        "~/Documents/wiki"    ;; First wiki (root directory) is the default. 
+      '("~/Documents/wiki"    ;; First wiki (root directory) is the default. 
         "~/Documents/wiki2 "
-        "~/Documents/wiki3"
-        ))
+        "~/Documents/wiki3"))
 
 ;; Initialize first org-wiki-directory or default org-wiki 
 (setq org-wiki-location (car org-wiki-location-list))
@@ -477,7 +463,7 @@ It can be set with:
 (setq org-wiki-server-host "127.0.0.1") ;; Listen only localhost 
 #+END_SRC
 
-**** Export Settings
+*** Export Settings
 
 In order to the html export work the path to emacs executable
 directory must be in the $PATH variable. In some OS like Windows where
@@ -498,7 +484,7 @@ The menu can be installed permanently by adding the init file:
 (org-wiki-make-menu)
 #+END_SRC
 
-**** Template 
+*** Template
 
 The user can set the org-wiki template used to create org-wiki files
 by changing the custom variable with 
@@ -523,8 +509,8 @@ The default template is:
 
 where: 
 
- - %n is replaced by the page name 
- - %d is replaced by current date in the format year-month-day  
+ - =%n= is replaced by the page name 
+ - =%d= is replaced by current date in the format year-month-day  
 
 This variable can also be set programatically with: 
 
@@ -546,7 +532,7 @@ This variable can also be set programatically with:
   "))
 #+END_SRC
 
-*** Start the wiki 
+** Start the wiki 
 
  - =M-x org-wiki-index= to go to index.org
 
@@ -629,59 +615,59 @@ This variable can also be set programatically with:
 
 Not complete yet.
 
-** Commands
-*** Help 
+* Commands
+** Help 
 
  - =M-x org-wiki-help= Show all org-wiki commands and its description. 
 
  - =M-x org-wiki-website= Open org-wiki project website in the default
    web browser.
 
-*** Open the index page
-**** M-x org-wiki-index
+** Open the index page
+*** M-x org-wiki-index
 
   - =M-x org-wiki-index= - Open the index page. It opens the file
     index.org that is the first default page of the wiki. If the file
     doesn't exist it will be created.
 
-**** M-x org-wiki-index-frame
+*** M-x org-wiki-index-frame
 
   - =M-x org-wiki-index-frame= - Open the wiki index page in a new frame.
-*** Pages
-**** M-x org-wiki-helm
+** Pages
+*** M-x org-wiki-helm
 
    - =M-x org-wiki-helm= - Open a helm menu to switch or open a wiki page.
 
-**** M-x org-wiki-switch 
+*** M-x org-wiki-switch 
 
   - =M-x org-wiki-switch= - Switch between org-wiki buffers (*.org
     files in org-wiki-location directory) already opened. 
 
-**** M-x org-wiki-helm-frame
+*** M-x org-wiki-helm-frame
    
    - =M-x org-wiki-helm-frame= - Open a wiki page in a new frame. 
 
-**** M-x org-wiki-helm-read-only
+*** M-x org-wiki-helm-read-only
 
    - =M-x org-wiki-helm-read-only= - Open a wiki page in read-only
      mode. 
 
-**** M-x org-wiki-make-page
+*** M-x org-wiki-make-page
 
    - =M-x org-wiki-make-page= - Creates a new wiki page asking the user
      for the page name.
 
-**** M-x org-wiki-close 
+*** M-x org-wiki-close 
 
    - =M-x org-wiki-close= - Close all wiki pages, kill all *.or buffers
      belonging to wiki directory.
 
-**** M-x org-wiki-close-image 
+*** M-x org-wiki-close-image 
 
  - Close all org-wiki image/picture buffers. 
 
-*** Insert Hyperlink to wiki pages or asset files
-**** M-x org-wiki-insert-link
+** Insert Hyperlink to wiki pages or asset files
+*** M-x org-wiki-insert-link
 
  - =M-x org-wiki-insert-link= - Asks the user for the wiki page name and
    inserts the hyperlink at point. It is useful to create new pages
@@ -698,7 +684,7 @@ Example:
 
 And will create the hyperlink to this page.
 
-**** M-x org-wiki-header 
+*** M-x org-wiki-header 
 
  - =M-x org-wiki-header=. It inserts at top of the wiki page the template:
 
@@ -713,26 +699,16 @@ Related:
 [[wiki:index][Index]]\n\n
 #+END_SRC
 
-**** M-x org-wiki-asset-insert 
+*** M-x org-wiki-asset-insert 
 
   - =M-x org-wiki-asset-insert= - Insert a asset file at point
     providing a heml menu to select the file. It inserts a link of
     format ~wiki-asset-sys:CurrentPage;AssetFilename.pdf~.
-*** Asset files / Attachments
-**** Commands to open page's asset directory 
-***** M-x org-wiki-assets-dired 
+** Asset files / Attachments
+*** Commands to open page's asset directory 
+**** M-x org-wiki-assets-dired 
 
 Open page's asset directory in Emacs dired mode.
-***** M-x org-wiki-assets-open  
-
-   - =M-x org-wiki-assets-open= - Open asset directory of current page
-     with system's default file manager. 
-
-***** M-x org-wiki-assets-helm
-
-   - =M-x org-wiki-assets-helm= - Select a wiki page and open its
-     assets directory.
-
 **** Commands to insert hyperlink to files 
 ***** M-x org-wiki-asset-create
 
@@ -836,8 +812,18 @@ It would insert a content like this:
   ]
 #+END_SRC
 
-**** Commands to open files directly 
-***** M-x org-wiki-asset-find-file
+**** M-x org-wiki-assets-open  
+
+   - =M-x org-wiki-assets-open= - Open asset directory of current page
+     with system's default file manager. 
+
+**** M-x org-wiki-assets-helm
+
+   - =M-x org-wiki-assets-helm= - Select a wiki page and open its
+     assets directory.
+
+*** Commands to open files directly 
+**** M-x org-wiki-asset-find-file
 
 It will open a helm menu containing the assets files of current
 page. It will open the selected file with Emacs.
@@ -847,18 +833,17 @@ file 'extendingClasses-number1.gst' it will open the file below with Emacs.
 
  - Smalltalk programming/'extendingClasses-number1.gst
 
-***** M-x org-wiki-asset-find-sys
+**** M-x org-wiki-asset-find-sys
 
 Open a menu to select an asset file of current page and open it with
 system's app.
 
 Example: If the current page is 'Smalltalk programming' and the
 user select the file 'numerical-methods-in-smalltalk.pdf' it will
-be opened with the default system's application like Foxit PDF or
-Okular reader.
+be opened with the default system's PDF reader.
 
-**** Commands to Download Files 
-***** M-x org-wiki-asset-download-insert1
+** Commands to Download Files 
+*** M-x org-wiki-asset-download-insert1
   
   - =M-x org-wiki-asset-download-insert1= - Ask the user the url to
     download a file suggesting the url stored in the clipboard and
@@ -869,7 +854,7 @@ Example:
  
  1. User is in the page Linux that corresponds to the file <org-wiki-location>/Linux.org
 
- 2. User copy the url
+ 2. User copies the url
     <https://inst.eecs.berkeley.edu/~cs61b/fa13/ta-materials/unix-concise-ref.pdf>
 
  3. User enter =M-x org-wiki-asset-download-insert1=
@@ -880,7 +865,7 @@ Example:
  4. It will insert at current point the hyperlink bellow. That points to the
     file <org-wiki-location>/Linux/unix-concise-ref.pdf.
 
-#+BEGIN_SRC 
+#+BEGIN_SRC
 [[wiki-asset-sys:Linux;unix-concise-ref.pdf][unix-concise-ref.pdf]] 
 #+END_SRC
 
@@ -889,7 +874,7 @@ Note: This command is synchronous and it can hang Emacs, therefore
 downloading heavy files can freeze Emacs. If it happesn type =C-g= to
 cancel the current download.
 
-***** M-x org-wiki-asset-download-insert2
+**** M-x org-wiki-asset-download-insert2
  
  - =M-x org-wiki-asset-download-insert2= - Similar to =M-x
    org-wiki-asset-download-insert1=, however it inserts a hyperlink of
@@ -908,28 +893,28 @@ Example:
 #+BEGIN_SRC 
 file:Linux/htop_1.jpg
 #+END_SRC
-*** Open wiki directory
-**** M-x org-wiki-dired 
+** Open wiki directory
+*** M-x org-wiki-dired 
 
   - =M-x org-wiki-dired= - Open the wiki directory in Emacs
     dired-mode showing only *.org files.
 
-**** M-x org-wiki-dired-all
+*** M-x org-wiki-dired-all
 
   - =M-x org-wiki-dired-all= - Open the wiki directory in Emacs
     showing all files. 
-*** Export all pages to html
-**** M-x org-wiki-export-html 
+** Export all pages to html
+*** M-x org-wiki-export-html 
 
  - =M-x org-wiki-export-html= - Exports all wiki pages to html
    asynchronously, it means withoyt block Emacs by starting a new
    Emacs process in background.
 
-**** M-x org-wiki-index-html 
+*** M-x org-wiki-index-html 
 
  - =M-x org-wiki-index-html= - Open the index page exported to html in
    the web browser.  
-*** Search
+** Search
 
  - =M-x org-wiki-search= - Search all wiki page that contains
    a pattern. (string or regex pattern).
@@ -950,7 +935,7 @@ file:Linux/htop_1.jpg
  
 #+CAPTION: Screenshot of command M-x org-wiki-keywords
 [[file:images/org-wiki-keywords.png][file:images/org-wiki-keywords.png]]
-*** Copy Commands
+** Copy Commands
 
  - =M-x org-wiki-copy-location= -  Copy org-wiki location path to clipboard.
 
@@ -961,7 +946,7 @@ file:Linux/htop_1.jpg
    directory path to clipboard. Example: If the current page is Linux,
    it will copy the '/<org-wiki-location>/Linux/' to clipboard.
 
-*** M-x org-wiki-backup-make 
+** M-x org-wiki-backup-make 
 
 To create a backup run =M-x org-wiki-backup-make= it will create a
 file =org-wiki-<YEAR>-<MONTH>-<DAY>.zip=, such as
@@ -970,7 +955,7 @@ file =org-wiki-<YEAR>-<MONTH>-<DAY>.zip=, such as
 *** M-x org-wiki-backup-dir 
 
 To open the backup directory run M-x =org-wiki-backup-dir.=
-*** Utilities 
+** Utilities 
 **** Insert greek letters, math, physics and currency symbols
 
 The command =M-x org-wiki-insert-symbol= allows inserting Greek
@@ -995,7 +980,7 @@ Examples of symbols of provided:
 
  + Fractions ¼, ⅓, ⅑
 
-**** Insert org-mode code blocks, tables, quotes and etc.
+*** Insert org-mode code blocks, tables, quotes and etc.
 
 This command makes easier to insert common org-mode code templates for
 code blocks, quote blocks, latex equations, table, example blocks and
@@ -1034,7 +1019,7 @@ If the user select the template Python code block, it will insert:
   ,#+END_SRC
 #+END_SRC
 
-**** Insert math formula, latex template, equations, greek letters and etc.
+*** Insert math formula, latex template, equations, greek letters and etc.
 
 The command =M-x org-wiki-insert-latex= allows writing Latex formulas,
 Greek letters and math symbolls quickly. It provides a helm menu where
