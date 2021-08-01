@@ -45,7 +45,6 @@ view-wiki-github:
 build:
 	emacs -l ~/.emacs.d/init.el --batch -f batch-byte-compile org-wiki.el 
 
-
 clean:
 	rm -rf *.elc 
 
