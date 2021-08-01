@@ -2,8 +2,6 @@ all: build
 
 html := dist/index.html
 
-
-
 install:
 	emacs --batch --eval "(package-install-file \"org-wiki.el\")" --kill
 
@@ -35,12 +33,6 @@ html-dist: html-redo
 	cd dist && git add wiki
 	cd dist && git commit -a -m "update html doc"
 	cd dist && git push
-
-view-github:
-	firefox https://caiorss.github.io/org-wiki
-
-view-wiki-github:
-	firefox https://caiorss.github.io/org-wiki/wiki/index.html
 
 build:
 	emacs -l ~/.emacs.d/init.el --batch -f batch-byte-compile org-wiki.el 
